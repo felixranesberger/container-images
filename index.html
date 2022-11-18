@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Container queries for images</title>
+  </head>
+  <body>
+
+      <picture data-responsive-image-loading="">
+        <source
+                srcset="#"
+                media="(min-width: 0)"
+                data-source-default="/100x100.jpg"
+                data-source-150-jpg="/150x150.jpg"
+                data-source-150-webp="/150x150.webp"
+                data-source-300-jpg="/300x300.jpg"
+                data-source-300-wep="/300x300.webp"
+        >
+
+        <img
+                src="https://picsum.photos/id/1002/800/400"
+                alt=""
+                width="800"
+                height="400"
+        >
+      </picture>
+
+      <script type="module" src="/src/main.ts"></script>
+
+  </body>
+</html>
