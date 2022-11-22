@@ -6,6 +6,11 @@ Unlike HTML responsive images, which are implemented with srcset,
 these images are based on the container size of their parent container 
 and not the screen size and are therefore much easier to maintain.
 
+## Installation
+```bash
+npm i container-images
+```
+
 ## Typescript
 
 ```ts
