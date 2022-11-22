@@ -19,8 +19,6 @@ const images = Array.from(
 );
 
 if (images.length !== 0) {
-    const { default: initModule } = 
-    
     import('container-images').then(({ default: initModule }) => {
         initModule(images)
     });
