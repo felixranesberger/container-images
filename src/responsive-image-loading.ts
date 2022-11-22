@@ -1,69 +1,76 @@
-type ResponsiveImage = {
-    [key: string]: {
-        webp?: string,
-        jpg?: string,
-    },
+type ResponsiveImageVariants = {
+    [key: string]: string,
+}
+
+const formatStringToKebabCase = (str: string) => str
+    .replace(
+        /[A-Z]+(?![a-z])|[A-Z]/g,
+        ($, ofs) => (ofs ? "-" : "") + $.toLowerCase()
+    );
+
+const computeResponsiveImageVariants = (sourceTag: HTMLSourceElement): ResponsiveImageVariants | undefined => {
+    const dataset = sourceTag.dataset;
+    if (Object.keys(dataset).length === 0) {
+        console.error('No source attributes found for responsive image', sourceTag);
+        return undefined;
+    }
+
+    const availableSources = Object.entries(dataset)
+        .map(([key, value]) => [formatStringToKebabCase(key), value])
+        .filter(([key]) => key?.startsWith('source-') || false)
+        .map(([key, value]) => [key?.replace('source-', ''), value]);
+
+    return Object.fromEntries(availableSources);
 };
 
-const kebabize = (str: string) => str.replace(/[A-Z]+(?![a-z])|[A-Z]/g, ($, ofs) => (ofs ? "-" : "") + $.toLowerCase())
+const sortResponsiveImageVariants = (variants: ResponsiveImageVariants): [string, string][] => {
+    return Object.entries(variants).sort(([keyA], [keyB]) => {
+        if (keyA === 'default') return 1;
+        if (keyB === 'default') return -1;
 
-export default (images: HTMLElement[]) => {
-    images.forEach((image) => {
-        const source = image.querySelector('source') as HTMLSourceElement | null;
-        if (source === null) throw new Error('No source element found');
+        return parseInt(keyB) <= parseInt(keyA) ? -1 : 1;
+    });
+};
 
-        let resources: ResponsiveImage = {};
+export default (pictureTags: HTMLPictureElement[]) => {
+    pictureTags.forEach((pictureTag) => {
+        const sourceTag = pictureTag.querySelector("source") as HTMLSourceElement | null;
+        if (sourceTag === null) {
+            console.error('No source element found in picture tag', pictureTag);
+            return;
+        }
 
-        Object.entries(source.dataset)
-            .map(([key, value]) => [kebabize(key), value])
-            .filter(([key]) => {
-                if (key === undefined) return false;
-                return key.startsWith('source-')
-            })
-            .map(([key, value]) => [key.replace('source-', ''), value])
-            .forEach(([width, url]) => {
-                if (!width || !url) return;
+        const imgTag = pictureTag.querySelector('img') as HTMLImageElement | null;
+        if (imgTag === null) {
+            console.error('No img element found in picture tag', pictureTag);
+            return;
+        }
 
-                if (resources[width] === undefined) {
-                    resources[width] = {};
-                }
+        const unsortedImageVariants = computeResponsiveImageVariants(sourceTag);
+        if (unsortedImageVariants === undefined) return;
 
-                resources[width] = url;
-            });
+        const sortedImageVariants = sortResponsiveImageVariants(unsortedImageVariants);
 
-        const resizeObserver = new ResizeObserver((entries) => {
-            entries.forEach((entry) => {
-                const { width: imageWidth } = entry.contentRect;
+        const resizeObserver = new ResizeObserver((imgTags) => {
+            imgTags.forEach((imgTag) => {
+                const { width: imgTagWidth } = imgTag.contentRect;
 
-                // sort resources desc, default key comes last
-                const sortedResources = Object.entries(resources)
-                    .sort((a, b) => {
-                        if (a[0] === 'default') return 1;
-                        if (b[0] === 'default') return -1;
-
-                        return parseInt(b[0]) <= parseInt(a[0]) ? -1 : 1;
-                    });
-
-                // get first resource that is larger than the image width
-                const result = sortedResources.find(([width]) => {
-                    return parseInt(width) <= imageWidth;
+                const source = sortedImageVariants.find(([width]) => {
+                    if (isNaN(parseInt(width))) return false;
+                    return parseInt(width) <= imgTagWidth;
                 });
 
-                console.log(1669126698024, result);
-
-                if (result === undefined) {
-                    source.srcset = resources['default'];
+                // if no matching source is found, use the default one
+                if (source === undefined) {
+                    sourceTag.srcset = unsortedImageVariants['default'];
                     return;
                 }
 
-                const [, url] = result;
-
-                source.srcset = url;
+                const [, sourceURL] = source;
+                sourceTag.srcset = sourceURL;
             });
         });
 
-        const img = image.querySelector('img');
-        if (img === null) throw new Error('No img element found');
-        resizeObserver.observe(img);
+        resizeObserver.observe(imgTag);
     });
 };
