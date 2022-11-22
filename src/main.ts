@@ -1,11 +1,10 @@
 const images = Array.from(
-    document.querySelectorAll<HTMLElement>('[data-responsive-image-loading]')
+  document.querySelectorAll<HTMLPictureElement>('[data-responsive-image-loading]'),
 );
 
 if (images.length !== 0) {
-    import('./responsive-image-loading').then(({ default: initResponsiveImageLoading }) => {
-        initResponsiveImageLoading(images);
-    });
+  // @ts-ignore
+  import('../dist/index').then(({ default: initModule }) => initModule(images));
 }
 
 export {};
