@@ -15,7 +15,7 @@ npm i container-images
 
 ```ts
 const images = Array.from(
-    document.querySelectorAll<HTMLPictureElement>('[data-responsive-image-loading]'),
+    document.querySelectorAll<HTMLPictureElement>('[data-container-images]'),
 );
 
 if (images.length !== 0) {
@@ -29,10 +29,10 @@ if (images.length !== 0) {
 
 ```html
 
-<picture data-responsive-image-loading="">
+<picture data-container-images="">
     <!-- 
         srcset and media attributes are required
-        data-source-default: default image, if no image matches image size
+        data-source-default: default image, if image width is below 250px
         data-source-500: image url which is loaded beginning from 500px image width
      -->
     <source
@@ -47,9 +47,9 @@ if (images.length !== 0) {
     <!-- Fallback image, which is necessary -->
     <img
             src="https://picsum.photos/750/375"
-            alt=""
-            width="800"
-            height="400"
+            width="750"
+            height="375"
+            alt="Image containing ..."
             loading="lazy"
     >
 </picture>
