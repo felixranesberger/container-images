@@ -32,45 +32,59 @@ const sortResponsiveImageVariants = (variants: ResponsiveImageVariants): [string
     });
 };
 
+const initResponsiveImageLoading = (pictureTag: HTMLPictureElement) => {
+    const sourceTag = pictureTag.querySelector("source") as HTMLSourceElement | null;
+    if (sourceTag === null) {
+        console.error('No source element found in picture tag', pictureTag);
+        return;
+    }
+
+    const imgTag = pictureTag.querySelector('img') as HTMLImageElement | null;
+    if (imgTag === null) {
+        console.error('No img element found in picture tag', pictureTag);
+        return;
+    }
+
+    const unsortedImageVariants = computeResponsiveImageVariants(sourceTag);
+    if (unsortedImageVariants === undefined) return;
+
+    const sortedImageVariants = sortResponsiveImageVariants(unsortedImageVariants);
+
+    const resizeObserver = new ResizeObserver((imgTags) => {
+        imgTags.forEach((imgTag) => {
+            const { width: imgTagWidth } = imgTag.contentRect;
+
+            const source = sortedImageVariants.find(([width]) => {
+                if (isNaN(parseInt(width))) return false;
+                return parseInt(width) <= imgTagWidth;
+            });
+
+            // if no matching source is found, use the default one
+            if (source === undefined) {
+                sourceTag.srcset = unsortedImageVariants['default'];
+                return;
+            }
+
+            const [, sourceURL] = source;
+            sourceTag.srcset = sourceURL;
+        });
+    });
+
+    resizeObserver.observe(imgTag);
+};
+
 export default (pictureTags: HTMLPictureElement[]) => {
     pictureTags.forEach((pictureTag) => {
-        const sourceTag = pictureTag.querySelector("source") as HTMLSourceElement | null;
-        if (sourceTag === null) {
-            console.error('No source element found in picture tag', pictureTag);
-            return;
-        }
+        const observerOptions: IntersectionObserverInit = {
+            rootMargin: '200px',
+        };
 
-        const imgTag = pictureTag.querySelector('img') as HTMLImageElement | null;
-        if (imgTag === null) {
-            console.error('No img element found in picture tag', pictureTag);
-            return;
-        }
+        const intersectionObserver = new IntersectionObserver(([entry]) => {
+            if (!entry.isIntersecting) return;
+            initResponsiveImageLoading(pictureTag);
+            intersectionObserver.disconnect();
+        }, observerOptions);
 
-        const unsortedImageVariants = computeResponsiveImageVariants(sourceTag);
-        if (unsortedImageVariants === undefined) return;
-
-        const sortedImageVariants = sortResponsiveImageVariants(unsortedImageVariants);
-
-        const resizeObserver = new ResizeObserver((imgTags) => {
-            imgTags.forEach((imgTag) => {
-                const { width: imgTagWidth } = imgTag.contentRect;
-
-                const source = sortedImageVariants.find(([width]) => {
-                    if (isNaN(parseInt(width))) return false;
-                    return parseInt(width) <= imgTagWidth;
-                });
-
-                // if no matching source is found, use the default one
-                if (source === undefined) {
-                    sourceTag.srcset = unsortedImageVariants['default'];
-                    return;
-                }
-
-                const [, sourceURL] = source;
-                sourceTag.srcset = sourceURL;
-            });
-        });
-
-        resizeObserver.observe(imgTag);
+        intersectionObserver.observe(pictureTag);
     });
 };
