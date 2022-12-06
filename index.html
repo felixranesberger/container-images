@@ -1,98 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Container queries for images</title>
-    <link rel="stylesheet" href="/src/styles.scss" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="/src/styles.scss"/>
+</head>
+<body>
 
-      <div class="image-wrapper">
-          <picture data-responsive-image-loading="">
-              <source
-                      srcset="#"
-                      media="(min-width: 0)"
-                      data-source-default="https://picsum.photos/750/375"
-                      data-source-250="https://picsum.photos/250/125"
-                      data-source-500="https://picsum.photos/500/250"
-                      data-source-750="https://picsum.photos/750/375"
-              >
+<div class="grid">
+    <picture data-container-images="">
+        <source
+                srcset="#"
+                media="(min-width: 0)"
+                data-source-default="https://via.placeholder.com/300x150.webp"
+                data-source-400="https://via.placeholder.com/400x200.webp"
+                data-source-500="https://via.placeholder.com/500x250.webp"
+                data-source-600="https://via.placeholder.com/600x300.webp"
+                data-source-700="https://via.placeholder.com/700x350.webp"
+        >
 
-              <img
-                      src="https://picsum.photos/750/375"
-                      alt=""
-                      width="800"
-                      height="400"
-                      loading="lazy"
-              >
-          </picture>
-      </div>
+        <img
+                src="https://via.placeholder.com/700x350.webp"
+                width="700"
+                height="350"
+                loading="lazy"
+                alt=""
+        >
+    </picture>
 
-      <div class="image-wrapper">
-          <picture data-responsive-image-loading="">
-              <source
-                      srcset="#"
-                      media="(min-width: 0)"
-                      data-source-default="https://picsum.photos/750/375"
-                      data-source-250="https://picsum.photos/250/125"
-                      data-source-500="https://picsum.photos/500/250"
-                      data-source-750="https://picsum.photos/750/375"
-              >
+    <picture data-container-images="">
+        <source
+                srcset="#"
+                media="(min-width: 0)"
+                data-source-default="https://via.placeholder.com/300x150.webp"
+                data-source-400="https://via.placeholder.com/400x200.webp"
+                data-source-500="https://via.placeholder.com/500x250.webp"
+                data-source-600="https://via.placeholder.com/600x300.webp"
+                data-source-700="https://via.placeholder.com/700x350.webp"
+        >
 
-              <img
-                      src="https://picsum.photos/750/375"
-                      alt=""
-                      width="800"
-                      height="400"
-                      loading="lazy"
-              >
-          </picture>
-      </div>
+        <img
+                src="https://via.placeholder.com/700x350.webp"
+                width="700"
+                height="350"
+                loading="lazy"
+                alt=""
+        >
+    </picture>
 
-      <div class="image-wrapper">
-          <picture data-responsive-image-loading="">
-              <source
-                      srcset="#"
-                      media="(min-width: 0)"
-                      data-source-default="https://picsum.photos/750/375"
-                      data-source-250="https://picsum.photos/250/125"
-                      data-source-500="https://picsum.photos/500/250"
-                      data-source-750="https://picsum.photos/750/375"
-              >
+    <picture data-container-images="">
+        <source
+                srcset="#"
+                media="(min-width: 0)"
+                data-source-default="https://via.placeholder.com/300x150.webp"
+                data-source-400="https://via.placeholder.com/400x200.webp"
+                data-source-500="https://via.placeholder.com/500x250.webp"
+                data-source-600="https://via.placeholder.com/600x300.webp"
+                data-source-700="https://via.placeholder.com/700x350.webp"
+        >
 
-              <img
-                      src="https://picsum.photos/750/375"
-                      alt=""
-                      width="800"
-                      height="400"
-                      loading="lazy"
-              >
-          </picture>
-      </div>
+        <img
+                src="https://via.placeholder.com/700x350.webp"
+                width="700"
+                height="350"
+                loading="lazy"
+                alt=""
+        >
+    </picture>
 
-      <div class="image-wrapper">
-          <picture data-responsive-image-loading="">
-              <source
-                      srcset="#"
-                      media="(min-width: 0)"
-                      data-source-default="https://picsum.photos/750/375"
-                      data-source-250="https://picsum.photos/250/125"
-                      data-source-500="https://picsum.photos/500/250"
-                      data-source-750="https://picsum.photos/750/375"
-              >
+    <picture data-container-images="">
+        <source
+                srcset="#"
+                media="(min-width: 0)"
+                data-source-default="https://via.placeholder.com/300x150.webp"
+                data-source-400="https://via.placeholder.com/400x200.webp"
+                data-source-500="https://via.placeholder.com/500x250.webp"
+                data-source-600="https://via.placeholder.com/600x300.webp"
+                data-source-700="https://via.placeholder.com/700x350.webp"
+        >
 
-              <img
-                      src="https://picsum.photos/750/375"
-                      alt=""
-                      width="800"
-                      height="400"
-                      loading="lazy"
-              >
-          </picture>
-      </div>
+        <img
+                src="https://via.placeholder.com/700x350.webp"
+                width="700"
+                height="350"
+                loading="lazy"
+                alt=""
+        >
+    </picture>
+</div>
 
-      <script type="module" src="/src/main.ts"></script>
+<script type="module" src="/src/main.ts"></script>
 
-  </body>
+</body>
 </html>

@@ -1,5 +1,5 @@
 const images = Array.from(
-  document.querySelectorAll<HTMLPictureElement>('[data-responsive-image-loading]'),
+  document.querySelectorAll<HTMLPictureElement>('[data-container-images]'),
 );
 
 if (images.length !== 0) {

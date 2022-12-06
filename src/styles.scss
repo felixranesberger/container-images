@@ -1,10 +1,22 @@
-.image-wrapper {
-  display: block;
-  margin-block-end: 500px;
+.grid {
+  display: grid;
+  grid-gap: 2rem;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+picture {
+  position: relative;
 }
 
 img {
-  width: 100%;
-  max-width: 750px;
+  display: block;
+  max-width: 100%;
   height: auto;
 }

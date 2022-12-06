@@ -1,6 +1,6 @@
 # Container queries for images
 
-This library allows to load images depending on the container size. 
+This library allows loading images depending on the container size. 
 
 Unlike HTML responsive images, which are implemented with srcset, 
 these images are based on the container size of their parent container 
@@ -28,29 +28,29 @@ if (images.length !== 0) {
 ## HTML
 
 ```html
-
 <picture data-container-images="">
     <!-- 
         srcset and media attributes are required
-        data-source-default: default image, if image width is below 250px
-        data-source-500: image url which is loaded beginning from 500px image width
+        data-source-default: default image, if container width is below 400px
+        data-source-400: image url which is loaded beginning from 400px container width
      -->
     <source
             srcset="#"
             media="(min-width: 0)"
-            data-source-default="https://picsum.photos/750/375"
-            data-source-250="https://picsum.photos/250/125"
-            data-source-500="https://picsum.photos/500/250"
-            data-source-750="https://picsum.photos/750/375"
+            data-source-default="https://via.placeholder.com/300x150.webp"
+            data-source-400="https://via.placeholder.com/400x200.webp"
+            data-source-500="https://via.placeholder.com/500x250.webp"
+            data-source-600="https://via.placeholder.com/600x300.webp"
+            data-source-700="https://via.placeholder.com/700x350.webp"
     >
 
-    <!-- Fallback image, which is necessary -->
+    <!-- Necessary fallback image -->
     <img
-            src="https://picsum.photos/750/375"
-            width="750"
-            height="375"
-            alt="Image containing ..."
+            src="https://via.placeholder.com/700x350.webp"
+            width="700"
+            height="350"
             loading="lazy"
+            alt="Placeholder image"
     >
 </picture>
 ```
