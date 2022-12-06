@@ -1,7 +1,7 @@
 {
   "name": "container-images",
   "type": "module",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Container queries for responsive image loading",
   "main": "dist/index.umd.cjs",
   "module": "dist/index.js",
