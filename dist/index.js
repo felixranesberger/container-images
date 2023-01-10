@@ -32,7 +32,7 @@ const f = (s) => s.replace(
     const t = {
       rootMargin: "200px"
     }, e = new IntersectionObserver(([n]) => {
-      !n.isIntersecting || (d(r), e.disconnect());
+      n.isIntersecting && (d(r), e.disconnect());
     }, t);
     e.observe(r);
   });
