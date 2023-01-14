@@ -15,13 +15,13 @@ npm i container-images
 
 ```ts
 const images = Array.from(
-    document.querySelectorAll<HTMLPictureElement>('[data-container-images]'),
-);
+  document.querySelectorAll<HTMLPictureElement>('[data-container-images]'),
+)
 
 if (images.length !== 0) {
-    import('container-images').then(({ default: initModule }) => {
-        initModule(images)
-    });
+  import('container-images').then(({ default: initModule }) => {
+    initModule(images)
+  })
 }
 ```
 
