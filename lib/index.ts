@@ -31,10 +31,10 @@ const sortResponsiveImageVariants = (variants: ResponsiveImageVariants): [string
   });
 
 const initResponsiveImageLoading = (pictureTag: HTMLPictureElement) => {
-  const sourceTag = pictureTag.querySelector('source') as HTMLSourceElement | null;
+  const sourceTag = pictureTag.querySelector<HTMLSourceElement>('source');
   if (sourceTag === null) return;
 
-  const imgTag = pictureTag.querySelector('img') as HTMLImageElement | null;
+  const imgTag = pictureTag.querySelector<HTMLImageElement>('img');
   if (imgTag === null) return;
 
   const unsortedImageVariants = computeResponsiveImageVariants(sourceTag);
