@@ -50,7 +50,6 @@ if (images.length !== 0) {
             src="https://via.placeholder.com/700x350.webp"
             width="700"
             height="350"
-            loading="lazy"
             alt="Placeholder image"
     >
 </picture>
