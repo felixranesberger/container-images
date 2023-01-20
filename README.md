@@ -14,14 +14,14 @@ npm i container-images
 ## Typescript
 
 ```ts
+import containerImages from 'container-images';
+
 const images = Array.from(
   document.querySelectorAll<HTMLPictureElement>('[data-container-images]'),
 )
 
 if (images.length !== 0) {
-  import('container-images').then(({ default: initModule }) => {
-    initModule(images)
-  })
+  containerImages(images);
 }
 ```
 
