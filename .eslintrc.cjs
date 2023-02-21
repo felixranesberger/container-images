@@ -4,5 +4,8 @@ module.exports = {
   extends: '@antfu',
   ignorePatterns: [
     'dist'
-  ]
+  ],
+  rules: {
+    'no-console': 'warn'
+  }
 }
