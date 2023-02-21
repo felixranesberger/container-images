@@ -1,6 +1,6 @@
 # Container queries for images
 
-This library allows loading images depending on the container size. 
+Container-images is a lightweight library (0.6KB gzipped) which allows you to use container queries for images.
 
 Unlike HTML responsive images, which are implemented with srcset, 
 these images are based on the container size of their parent container 
