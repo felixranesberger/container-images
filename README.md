@@ -6,7 +6,7 @@ Unlike HTML responsive images, which are implemented with srcset,
 these images are based on the container size of their parent container 
 and not the screen size and are therefore much easier to maintain.
 
-## Installation
+## Installation°
 ```bash
 npm i container-images
 ```
@@ -26,6 +26,8 @@ if (images.length !== 0) {
 ```
 
 ## HTML
+
+> data-container-images-loading="eager" is optional and can be used to load the images immediately
 
 ```html
 <picture data-container-images="">

@@ -74,6 +74,16 @@ export default (pictureTags: HTMLPictureElement[]) => {
       rootMargin: '200px',
     }
 
+    const hasOptionsDefined = pictureTag.hasAttribute('data-container-images-loading')
+    if (hasOptionsDefined) {
+      const loadingMode = pictureTag.getAttribute('data-container-images-loading')
+
+      if (loadingMode === 'eager') {
+        initResponsiveImageLoading(pictureTag)
+        return
+      }
+    }
+
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       if (!entry.isIntersecting)
         return
