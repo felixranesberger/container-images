@@ -1,12 +1,14 @@
 # Container queries for images
 
+[![NPM version](https://img.shields.io/npm/v/container-images?color=a1b858&label=)](https://www.npmjs.com/package/container-images)
+
 Container-images is a lightweight library (0.6KB gzipped) which allows you to use container queries for images.
 
-Unlike HTML responsive images, which are implemented with srcset, 
-these images are based on the container size of their parent container 
+Unlike HTML responsive images, which are implemented with srcset,
+these images are based on the container size of their parent container
 and not the screen size and are therefore much easier to maintain.
 
-## Installation°
+## Installation
 ```bash
 npm i container-images
 ```
@@ -56,3 +58,7 @@ if (images.length !== 0) {
     >
 </picture>
 ```
+
+## License
+
+[MIT](./LICENSE) License © 2023 [Felix Ranesberger](https://github.com/antfu)
