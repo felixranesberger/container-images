@@ -1,7 +1,7 @@
 {
   "name": "container-images",
   "type": "module",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Container queries for responsive image loading",
   "author": "Felix Ranesberger <felix@ranesberger.de>",
   "license": "MIT",
