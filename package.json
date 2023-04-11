@@ -52,7 +52,7 @@
     "eslint": "^8.31.0",
     "sass": "^1.56.1",
     "stylelint": "^15.3.0",
-    "stylelint-config-standard-scss": "^7.0.1",
+    "stylelint-config-standard-scss": "^8.0.0",
     "stylelint-scss": "^4.5.0",
     "stylelint-use-logical": "^2.1.0",
     "typescript": "^5.0.0",
