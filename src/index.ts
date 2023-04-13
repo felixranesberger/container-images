@@ -38,6 +38,13 @@ export default (pictureTags: HTMLPictureElement[]) => {
       return
     }
 
+    const hasSourceTagDeprecatedDataAttribute = sourceTag.dataset.sourceDefault !== undefined
+    if (hasSourceTagDeprecatedDataAttribute) {
+      console.warn(
+        'The data attribute data-source-default is deprecated. Please update your markup according to the container-images readme.',
+      )
+    }
+
     const imageTag = pictureTag.querySelector<HTMLImageElement>('img')
     if (imageTag === null) {
       console.error('No image tag found in picture tag, aborting', pictureTag)
