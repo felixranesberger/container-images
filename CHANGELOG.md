@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.0
+## 1.0.0
 Breaking changes:
 - Removed `data-container-images-loading="eager"` option
 - Removed `data-source-default` attribute option, because it is not needed anymore.
