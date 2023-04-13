@@ -1,90 +1,68 @@
-import { notUndefined, objectEntries } from '@antfu/utils'
-import { getNodeAttributesMatchingPrefix, numberClosestTo } from './utils'
+import {
+  convertStringToNumber,
+  filterObjectByKeyPrefix,
+  lazyExecuteCallback,
+  numberClosestTo,
+  stripObjectKeyPrefix,
+} from './utils'
 
-const getResponsiveImageVariants = (sourceTag: HTMLSourceElement) => {
-  const unvalidatedImageVariants = getNodeAttributesMatchingPrefix(sourceTag, 'data-source-')
+/**
+ * Get available sources from data attributes on source tag
+ * @param sourceTag - Source tag to get data attributes from
+ */
+function getAvailableSources(sourceTag: HTMLSourceElement) {
+  const attributePrefix = 'source-'
 
-  // filter out all keys that cannot be converted to numbers
-  const validImageVariants = objectEntries(unvalidatedImageVariants)
-    .map(([key, value]) => {
-      if
-
-      const parsedKey = parseInt(key, 10)
-      if (Number.isNaN(parsedKey))
-        return undefined
-
-      return [parsedKey, value]
-    })
-    .filter(notUndefined)
-
-  if (validImageVariants.length === 0)
-    throw new Error('No valid container-images data attributes found')
-
-  return Object.fromEntries(validImageVariants)
-}
-
-const initResponsiveImageLoading = (pictureTag: HTMLPictureElement) => {
-  const sourceTag = pictureTag.querySelector<HTMLSourceElement>('source')
-  if (sourceTag === null)
+  const { dataset } = sourceTag
+  if (Object.keys(dataset).length === 0) {
+    console.error('No data attributes found in source tag, aborting', sourceTag)
     return
+  }
 
-  const imgTag = pictureTag.querySelector<HTMLImageElement>('img')
-  if (imgTag === null)
-    return
+  const unsortedImageVariants = filterObjectByKeyPrefix(
+    dataset as Record<string, string>,
+    attributePrefix,
+  )
 
-  const responsiveImageVariants = getResponsiveImageVariants(sourceTag)
+  if (Object.keys(unsortedImageVariants).length === 0)
+    console.error('No valid container-images data attributes found on source tag, aborting', sourceTag)
 
-  const resizeObserver = new ResizeObserver(([element]) => {
-    const { width: imageWidth } = element.contentRect
-
-    // get image variant that is closest to the current image width
-    const closestImageVariantKey = numberClosestTo(
-      Object.keys(responsiveImageVariants),
-      imageWidth,
-    )
-
-    const source = sortedImageVariants.find(([width]) => {
-      if (Number.isNaN(parseInt(width, 10)))
-        return false
-      return parseInt(width, 10) <= imageWidth
-    })
-
-    // if no matching source is found, use the default one
-    if (source === undefined) {
-      sourceTag.srcset = unsortedImageVariants.default
-      return
-    }
-
-    const [, sourceURL] = source
-    sourceTag.srcset = sourceURL
-  })
-
-  resizeObserver.observe(imgTag)
+  return stripObjectKeyPrefix(unsortedImageVariants, attributePrefix)
 }
 
 export default (pictureTags: HTMLPictureElement[]) => {
   pictureTags.forEach((pictureTag) => {
-    const observerOptions: IntersectionObserverInit = {
-      rootMargin: '200px',
+    const sourceTag = pictureTag.querySelector<HTMLSourceElement>('source')
+    if (sourceTag === null) {
+      console.error('No source tag found in picture tag, aborting', pictureTag)
+      return
     }
 
-    const hasOptionsDefined = pictureTag.hasAttribute('data-container-images-loading')
-    if (hasOptionsDefined) {
-      const loadingMode = pictureTag.getAttribute('data-container-images-loading')
-
-      if (loadingMode === 'eager') {
-        initResponsiveImageLoading(pictureTag)
-        return
-      }
+    const imageTag = pictureTag.querySelector<HTMLImageElement>('img')
+    if (imageTag === null) {
+      console.error('No image tag found in picture tag, aborting', pictureTag)
+      return
     }
 
-    const intersectionObserver = new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting)
-        return
-      initResponsiveImageLoading(pictureTag)
-      intersectionObserver.disconnect()
-    }, observerOptions)
+    const availableSources = getAvailableSources(sourceTag)
+    if (availableSources === undefined)
+      return
 
-    intersectionObserver.observe(pictureTag)
+    lazyExecuteCallback(pictureTag, () => {
+      const availableSourceWidths = Object.keys(availableSources).map(convertStringToNumber)
+
+      const resizeObserver = new ResizeObserver(([element]) => {
+        const { width: imageWidth } = element.contentRect
+
+        const bestFittingSource = numberClosestTo(
+          availableSourceWidths,
+          imageWidth,
+        )
+
+        sourceTag.srcset = availableSources[bestFittingSource]
+      })
+
+      resizeObserver.observe(imageTag)
+    })
   })
 }

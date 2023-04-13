@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { getNodeAttributesMatchingPrefix, numberClosestTo } from '../src/utils'
+import { filterObjectByKeyPrefix, formatStringToKebabCase, numberClosestTo } from '../src/utils'
 
 describe('utils', () => {
+  it('should format string to kebab case', () => {
+    expect(formatStringToKebabCase('HelloWorld')).toBe('hello-world')
+    expect(formatStringToKebabCase('helloworld')).toBe('helloworld')
+  })
+
   it('should get number closest to target', () => {
     expect(numberClosestTo([1, 2, 3, 4, 5], 3)).toBe(3)
     expect(numberClosestTo([100, 200, 300], 160)).toBe(200)
@@ -10,16 +15,18 @@ describe('utils', () => {
   })
 
   it('should get node attributes matching prefix', () => {
-    const prefix = 'data-prefix-'
+    const input = {
+      'key-incorrect': 'incorrect',
+      'key-incorrect-2': 'incorrect-2',
+      'key-correct': 'correct',
+      'key-correct-2': 'correct-2',
+    }
 
-    const node = document.createElement('div')
-    node.setAttribute('data-prefix-key-1', 'value1')
-    node.setAttribute('data-prefix-key-2', 'value2')
-    node.setAttribute('data-random-prefix-key-3', 'value3')
+    const expectedOutput = {
+      'key-correct': 'correct',
+      'key-correct-2': 'correct-2',
+    }
 
-    expect(getNodeAttributesMatchingPrefix(node, prefix)).toEqual({
-      'key-1': 'value1',
-      'key-2': 'value2',
-    })
+    expect(filterObjectByKeyPrefix(input, 'key-correct')).toEqual(expectedOutput)
   })
 })
