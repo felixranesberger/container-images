@@ -1,12 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
-  ],
-   "packageRules": [
-    {
-      "matchPackagePatterns": ["*"],
-      "automerge": false
-    }
+    "config:base",
+    ":pinVersions",
+    ":separateMultipleMajorReleases",
+    ":combinePatchMinorReleases",
+    ":ignoreModulesAndTests",
+    ":automergePatch",
+    ":automergeMinor",
+    ":pinSkipCi",
+    "group:allNonMajor"
   ]
 }
