@@ -53,7 +53,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@antfu/utils": "0.7.5"
+    "@antfu/utils": "0.7.6"
   },
   "devDependencies": {
     "@antfu/eslint-config": "0.40.2",
