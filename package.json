@@ -60,7 +60,7 @@
     "@antfu/ni": "0.21.6",
     "@types/node": "18.17.11",
     "bumpp": "9.2.0",
-    "eslint": "8.47.0",
+    "eslint": "8.48.0",
     "esno": "0.17.0",
     "jsdom": "22.1.0",
     "lint-staged": "14.0.1",
