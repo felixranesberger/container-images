@@ -56,7 +56,7 @@
     "@antfu/utils": "0.7.6"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "0.43.0",
+    "@antfu/eslint-config": "0.43.1",
     "@antfu/ni": "0.21.8",
     "@types/node": "18.17.18",
     "bumpp": "9.2.0",
@@ -69,7 +69,7 @@
     "typescript": "5.2.2",
     "unbuild": "1.2.1",
     "vite": "4.4.9",
-    "vitest": "0.34.4"
+    "vitest": "0.34.5"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
