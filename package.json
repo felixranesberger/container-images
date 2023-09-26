@@ -64,7 +64,7 @@
     "esno": "0.17.0",
     "jsdom": "22.1.0",
     "lint-staged": "14.0.1",
-    "rimraf": "5.0.1",
+    "rimraf": "5.0.4",
     "simple-git-hooks": "2.9.0",
     "typescript": "5.2.2",
     "unbuild": "1.2.1",
