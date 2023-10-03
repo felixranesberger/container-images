@@ -68,7 +68,7 @@
     "simple-git-hooks": "2.9.0",
     "typescript": "5.2.2",
     "unbuild": "1.2.1",
-    "vite": "4.4.9",
+    "vite": "4.4.10",
     "vitest": "0.34.6"
   },
   "simple-git-hooks": {
