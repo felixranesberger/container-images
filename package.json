@@ -63,7 +63,7 @@
     "eslint": "8.57.1",
     "esno": "0.17.0",
     "jsdom": "22.1.0",
-    "lint-staged": "14.0.1",
+    "lint-staged": "15.5.0",
     "rimraf": "5.0.10",
     "simple-git-hooks": "2.11.1",
     "typescript": "5.6.2",
