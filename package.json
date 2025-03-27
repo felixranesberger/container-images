@@ -58,7 +58,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "0.43.1",
     "@antfu/ni": "0.23.0",
-    "@types/node": "18.19.50",
+    "@types/node": "20.17.28",
     "bumpp": "9.5.2",
     "eslint": "8.57.1",
     "esno": "0.17.0",
